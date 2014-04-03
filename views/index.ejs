@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <title>タイトル 例:ASK TOKYO 2014 #都知事候補だけど質問ある？ | 都知事候補へ「趣味のこと」から「都知事になってやりたい政策」まで何でも自由に直接質問できる、市民と候補者のための日本初のウェブキャンペーンです。</title>
+  <!--site Attribute-->
+  <meta name="description" content="サイト説明 例:ASK TOKYO 2014　#都知事候補だけど質問ある？ ASK TOKYO 2014は日本初、都民と都知事選立候補者とのウェブコミュニケーションを実現します。">
+
+  <!-- OG -->
+  <meta property="og:title" content="シェア用タイトル 例:ASK TOKYO 2014 #都知事候補だけど質問ある？ / 投票に行く人を増やす。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="シェア用説明文 例:ASK TOKYO 2014は、都知事候補へ「趣味のこと」から「都知事になってやりたい政策」まで何でも自由に直接質問できる、市民と候補者のための日本初のウェブキャンペーンです。「こんなことを聞いてもいいのかな？」なんて心配は要りません。せっかくのこの機会に、何か質問してみませんか？" />
+  <meta property="og:url" content="http://amaontwitter.com/" />
+  <meta property="og:image" content="http://amaontwitter.com/img/logo.png" />
+  <meta property="og:site_name" content="シェア用サイト名 例:ASK TOKYO 2014 #都知事候補だけど質問ある？ / 投票に行く人を増やす。" />
+  <!-- OG -->
+
+  <script type="text/javascript">
+    var socketioUrl = "<%= socketio_url %>";
+    var from = "<%= from %>";
+    var maxTweetLength = <%= max_tweet_length %>;
+    var candidates = ['1235567', '123344556', '12334456678']; // 候補者のTwitter ID
+  </script>
+
+  <!-- jquery -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/jquery-2.0.3.min.js"></script>
+  <script src="/javascripts/main.js"></script>
+  <script src="/javascripts/favico-0.3.4.min.js"></script>
+
+  <link rel="stylesheet" href="css/plane.css">
+  <link rel="stylesheet" href="css/common.css">
+
+  <link rel="shortcut icon" href="img/logo.png" />
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-XXXXXX-1', 'amaontwitter.com');
+    ga('send', 'pageview');
+  </script>
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <!--wrapper-->
+    <div id="background">
+
+      <header id="header">
+        <ul>
+          <li>2014年◯月◯日◯◯選投票日 投票に行く人を増やす。</li>
+          <li>
+            <ul class="shareBtn">
+
+              <li>
+                <div class="likeButton">
+                  <div class="fb-like" data-href="http://example.com" data-width="300" data-layout="button_count" data-action="like"></div>
+                </div>
+              </li>
+              <li>
+                <div class="tweetButton">
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-text="シェア用テキスト　例:2014年都知事選挙、立候補者の方々がTwitterユーザーからの質問に答えてくれました。候補者から集まった回答を参考に、是非投票に行ってください。 #都知事候補だけど質問ある？ #都知事選 " data-lang="ja" data-related="twitterのアカウント名" data-via="twitterのアカウント名">ツイート</a>
+                </div>
+              </li>
+              <li>
+                <div class="pocketButton">
+                  <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="ja" ></a>
+                </div>
+              </li>
+              <li>
+                <div class="hatebuButton">
+                  <a href="http://b.hatena.ne.jp/entry/amaontwitter.com" class="hatena-bookmark-button" data-hatena-bookmark-title="はてブ用タイトル 例:AskTokyo2014 #都知事候補だけど質問ある？" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加">
+                    <img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </header>
+
+      <section id="questionArea">
+        <div class="left">
+          <h1>
+            AMA
+            <br/>
+            onTwitterEngine
+          </h1>
+          <h2>#◯◯候補だけど質問ある？</h2>
+          <div class="block">
+            <form id="questionForm" action="/tweet" method='POST'>
+
+              <textarea id="questionText" name="text" type="text" placeholder="なんで出馬したの？"></textarea>
+              <button id="questionButton" type="button" class="btn question">質問する</button>
+              <p class="textCount">
+                <%= max_tweet_length %></p>
+            </form>
+            <section id="concept">
+              <p>
+                ASK TOKYO 2014は、都知事候補へ「趣味のこと」から「都知事になってやりたい政策」まで何でも自由に直接質問できる、市民と候補者のための日本初のウェブキャンペーンです。「こんなことを聞いてもいいのかな？」なんて心配は要りません。せっかくのこの機会に、何か質問してみませんか？
+              </p>
+              <p>
+                <span id="fixCandidateList"></span>
+                <br>
+                <span id="candidateList"></span>
+              </p>
+            </section>
+          </div>
+        </div>
+        <div class="right">
+          <ul>
+            <li class="candidate">
+              <div class="user">
+                <img class="icon" src="/img/icon.png" />
+                <div class="name">
+                  <p>#◯◯候補だけど質問ある？</p>
+                  <a href="https://twitter.com/AMAonTwitterEngine" target="_blank">@AMAonTwitterEngine</a>
+                </div>
+              </div>
+              <div id="hashTweetCount" class="responseCount">0</div>
+
+              <ul class="twitterTimelines">
+                <li id="hashTweet" class="twitterTimeline">
+                  <button class="new">
+                    新しいツイートが
+                    <span class="num">0</span>
+                    件
+                  </button>
+                  <ul class="stream"></ul>
+                </li>
+
+              </ul>
+              <section id="sponsor">
+        </section>
+            </div>
+          </section>
+
+        </div>
+        <!--background-->
+
+        <section id="timelineArea">
+
+            <h2>質疑応答</h2>
+
+            <ul class="candidatesHead">
+
+              <li class="candidate">
+                <div class="user">
+                  <img class="icon" src="/img/icon.png" />
+                  <div class="name">
+                    <p>◯◯候補</p>
+                    <a href="https://twitter.com/utsunomiyakenji" target="_blank">@candidates_account</a>
+                  </div>
+                </div>
+                <div id="uCount" class="responseCount">0</div>
+
+                <ul class="candidateTimeLines">
+                  <li id="uTweet" class="candidateTimeLine">
+                    <ul class="qa"></ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="candidate">
+                <div class="user">
+                  <img class="icon" src="/img/icon.png" />
+                  <div class="name">
+                    <p>◯◯候補</p>
+                    <a href="https://twitter.com/MasuzoeYoichi" target="_blank">@candidates_account</a>
+                  </div>
+                </div>
+                <div id="mCount" class="responseCount">0</div>
+
+                <ul class="candidateTimeLines">
+                  <li id="mTweet" class="candidateTimeLine">
+                    <ul class="qa"></ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="candidate">
+                <div class="user">
+                  <img class="icon" src="/img/icon.png" />
+                  <div class="name">
+                    <p>◯◯候補</p>
+                    <a href="https://twitter.com/hbkr" target="_blank">@candidates_account</a>
+                  </div>
+                </div>
+                <div id="iCount" class="responseCount">0</div>
+
+                <ul class="candidateTimeLines">
+                  <li id="iTweet" class="candidateTimeLine">
+                    <ul class="qa"></ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="candidate">
+                <div class="user">
+                  <img class="icon" src="/img/icon.png" />
+                  <div class="name">
+                    <p>◯◯候補</p>
+                    <a href="https://twitter.com/morihirotokyo" target="_blank">@candidates_account</a>
+                  </div>
+                </div>
+                <div id="hCount" class="responseCount">0</div>
+
+                <ul class="candidateTimeLines">
+                  <li id="hTweet" class="candidateTimeLine">
+                    <ul class="qa"></ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="mobile" class="candidate">
+                <div class="user">
+                  <img class="icon" src="https://pbs.twimg.com/profile_images/428527592388321280/UKdaIlOy_bigger.png" />
+                  <div class="name">
+                    <p>QAタイムライン</p>
+                    <a href="#"></a>
+                  </div>
+                </div>
+                <div id="mobileCount" class="responseCount">0</div>
+
+                <ul class="candidateTimeLines">
+                  <li id="mobileTweet" class="candidateTimeLine">
+                    <ul class="qa"></ul>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+          </section>
+          <section id="tutorial">
+            <h2>手順</h2>
+            <ul>
+              <li>
+                <h3>STEP1「質問する」</h3>
+                <p>
+                  あなたから都知事候補に聞いてみたいことを投稿してください。政策のこと、学生時代のことなど、なんでも構いません。（投稿にはツイッターアカウントが必要です）
+                </p>
+              </li>
+              <li>
+                <h3>STEP2「回答を見る」</h3>
+                <p>
+                  2/4(火) 21時～22時の間（※1）、寄せられた質問に都知事候補が一斉に答えます。回答は、この特設サイトからご覧ください。回答は、寄せられた質問の中から運営側が選定した（※2）質問に対して行われます。（回答いただく質問は各候補への共通質問と都知事候補自らが選定した質問の2種類があります。）（※3）
+                </p>
+              </li>
+              <li>
+                <h3>STEP3「参考にする」</h3>
+                <p>
+                  イベント後も回答結果を見ることができますのので、投票先を選ぶ際の参考にしてください。また、候補者によってはイベント後も質問に答えてくれるかもしれませんので、他にも聞きたいことがあれば質問を投稿してみましょう。
+                </p>
+              </li>
+            </ul>
+            <ul class="attention">
+              <li>※1 時間は変更となる可能性があります。</li>
+              <li>※2 候補者や他人を誹謗中傷するような質問は除く方針です。</li>
+              <li>※3 寄せられた全ての質問に対して回答が行われるわけではありません。</li>
+            </ul>
+          </section>
+      <footer id="footer">
+        <ul>
+          <li>
+            <a href="/" style="color: #22C6FB;">利用規約/プライバシーポリシー</a>
+            © AMAonTwitterEngine, All rights Reserved.
+          </li>
+        </ul>
+      </footer>
+    </div>
+    <!--wrapper fin-->
+
+    <!--script for social buttons-->
+
+    <!--Twitter-->
+    <script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+    <!--Facebook-->
+    <div id="fb-root"></div>
+    <script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=122682327907360";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+    <!--Hatena-->
+    <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    <!--Pocket-->
+    <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+</body>
+  </html>
