@@ -1,0 +1,157 @@
+@charset "UTF-8";
+/*-------------------------------------------------------------
+style less
+Update: 2013-07-01
+------------------------------------------------------------- */
+@fontFamily:'Lucida Grande','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','Meiryo', 'メイリオ', 'sans-serif';
+*{
+    .border-box;
+}
+
+p,a,h1,h2{
+    font-family: @fontFamily;
+}
+
+.border-box(){
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+/*margin padding*/
+.margin(@margin:0){
+    margin: @margin;
+}
+.padding(@padding:0){
+    padding: @padding;
+}
+/*reset*/
+img{
+    .margin;
+    .padding;
+}
+/*link*/
+a:active,a:link{
+	text-decoration:none;
+	cursor: pointer;
+	&:hover{
+		.opacity(0.8);
+		cursor: pointer;
+	}
+}
+
+/*font*/
+html{
+    font-size: 62.5%;
+}
+.fontSmall(@f_size:10){ .fontSize(@f_size); }
+.fontNormal(@f_size:14){ .fontSize(@f_size); }
+.fontBig(@f_size:21){ .fontSize(@f_size); }
+
+.fontSize(@font-size) {
+    @pxFontValue: (@font-size / 10);
+    @pxLineValue: (@font-size / 10 * 1.5);
+    font-size: @font-size * 1px;
+    line-height: @font-size * 1.5 * 1px;
+    font-size: ~"@{pxFontValue}rem";
+    line-height: ~"@{pxLineValue}rem";
+    font-style:normal;
+}
+/*border*/
+.borderAll(@size, @color,@alpha:1){
+    @myred:red(@color);
+    @mygreen:green(@color);
+    @myblue:blue(@color);
+    border:@size solid rgba(@myred,@mygreen,@myblue,@alpha);
+}
+.borderBottom(@size, @color, @alpha:1){
+    @myred:red(@color);
+    @mygreen:green(@color);
+    @myblue:blue(@color);
+    border-bottom:@size solid rgba(@myred,@mygreen,@myblue,@alpha);
+}
+
+/*radius*/
+.borderRadius( @radius: 4px ) { 
+  -webkit-border-radius: @radius; 
+  -moz-border-radius: @radius; 
+  border-radius: @radius;
+}
+/*shadow*/
+.textShadow (@x: 0, @y: 1px, @blur: 2px,@color,@alpha: 0.2) {
+    @myred:red(@color);
+    @mygreen:green(@color);
+    @myblue:blue(@color);
+	text-shadow: @x @y @blur rgba(@myred,@mygreen,@myblue,@alpha);
+}
+
+.boxShadow (@x: 0, @y: 1px, @blur: 1px, @spread: 0, @color,@alpha: 0.2) {
+    @myred:red(@color);
+    @mygreen:green(@color);
+    @myblue:blue(@color);
+	-webkit-box-shadow:	@x @y @blur @spread rgba(@myred,@mygreen,@myblue,@alpha);
+	-moz-box-shadow:	@x @y @blur @spread rgba(@myred,@mygreen,@myblue,@alpha);
+	box-shadow:		@x @y @blur @spread rgba(@myred,@mygreen,@myblue,@alpha);
+}
+.insetShadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @color,@alpha: 0.2) {
+    @myred:red(@color);
+    @mygreen:green(@color);
+    @myblue:blue(@color);
+	-webkit-box-shadow: inset @x @y @blur @spread rgba(@myred,@mygreen,@myblue,@alpha);
+	-moz-box-shadow:    inset @x @y @blur @spread rgba(@myred,@mygreen,@myblue,@alpha);
+	box-shadow:         inset @x @y @blur @spread rgba(@myred,@mygreen,@myblue,@alpha);
+}
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}
+
+/*customStyles*/
+.size(@width,@height:auto){
+    width:@width;
+    height:@height;
+}
+
+/*body*/
+body{
+	//body
+	&::-webkit-scrollbar{
+		overflow: hidden;
+		width: 6px;
+	}
+	&::-webkit-scrollbar:vertical{
+			width: 6px;
+			padding:1px;
+	}
+	&::-webkit-scrollbar:horizontal{
+		display:none;
+	}
+	/* Track */
+	&::-webkit-scrollbar-track {
+			width:8px;
+			margin:0;
+			-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
+			.bgColor(lighten(@darkblue,60%),1);
+		 
+	}
+	&::-webkit-scrollbar-button {
+		display: none;
+	}
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+			
+			.bgColor(lighten(@darkblue,10%),1);
+	}
+	&::-webkit-scrollbar-thumb:window-inactive {
+		background:rgba(255,255,255,0);
+	}
+	/* Corner */
+	&::-webkit-scrollbar-corner{
+		display:none;
+	}
+	&::-webkit-resizer{
+		display:none;
+		resize:none;
+	}
+}
+
