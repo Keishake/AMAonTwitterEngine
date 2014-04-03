@@ -9,7 +9,6 @@ function debug(bool){
 }
 
 var express = require('express')
-  , routes = require('./routes')
   , http = require('http')
   , _ = require('underscore')
   , path = require('path');

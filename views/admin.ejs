@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <title>管理画面</title>
+  <!--site Attribute-->
+  <meta name="description" content="管理画面">
+
+  <script type="text/javascript">
+    var socketioUrl = "<%= socketio_url %>";
+    var from = "<%= from %>";
+    var maxTweetLength = <%= max_tweet_length %>;
+  </script>
+
+  <!-- jquery -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/jquery-2.0.3.min.js"></script>
+  <script src="/javascripts/admin-main.js"></script>
+  <script src="/javascripts/favico-0.3.4.min.js"></script>
+
+  <link rel="stylesheet" href="css/plane.css">
+  <link rel="stylesheet" href="css/common.css">
+
+  <link rel="shortcut icon" href="img/logo.png" />
+</head>
+
+<body>
+  <div id="wrapper">
+    <!--wrapper-->
+    <div id="background">
+
+      <section id="questionArea">
+        <div class="left" style="width:40%;">
+          <p class="pr">◯月◯日(火) 21:00-22:00開催！</p>
+          <h1 style="font-size: 40px;">
+            AMAonTwitterEngine 管理画面
+          </h1>
+          <div class="tweetButton">
+            <p style="font-size: 20px; color:white;">　最初のあいさつ用ツイートボタン：　<a href="https://twitter.com/share" class="twitter-share-button" data-text="これから◯◯に集まった質問に回答していきます！ #◯◯候補だけど質問ある？ 回答はこちらのサイトから一覧で見ていただけます→" data-lang="ja" data-count="none" data-url="http://amaontwitter.com/">ツイート</a></p>
+          </div>
+          <div class="block">
+            <section id="concept">
+              <p style="font-size: 26px;">■ 最初に共通でお答えいただく質問</p>
+              <p style="font-size: 22px;">【質問1】<a href="https://twitter.com/" style="color:white; text-decoration: underline;" target='_blank'>例:2020年をピークに人口減を迎える東京。そのために、いま打っておくべき手は何ですか？</a></p>
+              <p style="font-size: 22px;">【質問2】<a href="https://twitter.com/" style="color:white; text-decoration: underline;" target='_blank'>例:待機児童問題が解消されませんが、認可保育園の規定を緩くしたり、認証保育園を増やしていきませんか？子どもを育てることができず、少子化に繋がる一方だと思います。</a></p>
+              <p style="font-size: 22px;">【質問3】<a href="https://twitter.com/" style="color:white; text-decoration: underline;" target='_blank'>例:政治家はいつもお願いされる立場ですね。都民の方々に何でも1つお願いできるとしたら、何をお願いしますか。</a></p>
+              <p style="font-size: 22px;">【質問4】<a href="https://twitter.com/" style="color:white; text-decoration: underline;" target='_blank'>例:近年、「国民総幸福量(度)」が注目されましたが、あなたにとっての「幸せ」とは何ですか？</a></p>
+              <p style="font-size: 22px;">【質問5】<a href="https://twitter.com/" style="color:white; text-decoration: underline;" target='_blank'>例:副知事にはどんな人を置きたいですか。</a></p>
+              <div style="height: 25px;"></div>
+            </section>
+          </div>
+          <div class="tweetButton">
+            <p style="font-size: 20px; color:white;">　終わりのあいさつ用ツイートボタン：　<a href="https://twitter.com/share" class="twitter-share-button" data-text="質問への回答を終了したいと思います。たくさんの質問ありがとうございました。是非、投票の際の参考にしてください。 #◯◯候補だけど質問ある？" data-lang="ja" data-count="none" data-url="http://amaontwitter.com/">ツイート</a></p>
+          </div>
+        </div>
+        <div class="right" style="width:50%;">
+          <ul>
+            <li class="candidate">
+              <div class="user">
+                <img class="icon" src="/img/icon.png" />
+                <div class="name">
+                  <a href="https://twitter.com/AMAonTwitterEngine" target="_blank">@AMAonTwitterEngine</a>
+                </div>
+              </div>
+              <div id="hashTweetCount" class="responseCount">0</div>
+
+              <ul class="twitterTimelines" style="height: 700px;">
+                <li id="hashTweet" class="twitterTimeline" style="height: 700px;">
+                  <button class="new">
+                    新しいツイートが
+                    <span class="num">0</span>
+                    件
+                  </button>
+                  <ul class="stream" style="height: 650px;"></ul>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+        <!--background-->
+    <footer id="footer">
+      <ul>
+        <li>AMAonTwitterEngine #◯◯候補だけど質問ある？</li>
+        <li>
+          <a href="http://www.google.co.jp/intl/ja/chrome/browser/" style="color: #22C6FB;" target="_blank">Chromeダウンロードリンク</a>　
+          <a href="/" style="color: #22C6FB;" target="_blank">利用規約/プライバシーポリシー</a>　
+          © AMAonTwitterEngine, All rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+  <!--wrapper fin-->
+  <script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+</body>
+</html>
